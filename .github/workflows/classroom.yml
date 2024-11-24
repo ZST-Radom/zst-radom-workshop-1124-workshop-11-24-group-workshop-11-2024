@@ -1,0 +1,26 @@
+name: Check String in File
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  check-string:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Check if string exists in file
+      run: |
+        if ! grep -q "#" "workshop.md"; then
+          echo "String does not exist in the file"
+          exit 1
+        else
+          echo "String exists in the file"
+        fi
